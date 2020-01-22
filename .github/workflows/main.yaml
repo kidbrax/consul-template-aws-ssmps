@@ -6,9 +6,6 @@ on:
     branches:
       - master
 
-env:
-  GOENV: amd64
-
 jobs:
   # lint
 
@@ -18,19 +15,14 @@ jobs:
     runs-on: windows-latest
 
     env:
-      GOPATH: ${{ github.workspace }}
       GOOS: windows
+      GOARCH: amd64
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        path: ./src/github.com/${{ github.repository }}
 
     - name: build
       run: |
-        echo ${env:GOOS} ${env:GOENV}
-        go env
-        go get
         go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
         ssmps.exe
       shell: powershell
@@ -39,27 +31,20 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GOPATH: ${{ github.workspace }}
       GOOS: linux
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        path: src/github.com/${{ github.repository }}
 
     - name: build
-      run: |
-        echo $GOOS echo $GOENV
-        go env
-        go get
-        GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=0.1.2" -o ssmps main.go
+      run: GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=0.1.2" -o ssmps main.go
 
   release:
       needs: [build_windows, build_linux]
       runs-on: ubuntu-latest
 
       steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: release
         run: echo 'releasing'
