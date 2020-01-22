@@ -28,7 +28,7 @@ jobs:
     - name: Upload Windows build
       uses: actions/upload-artifact@v1
       with:
-        name: ssmps.exe
+        name: ssmpsw
         path: ssmps.exe
 
   build_linux:
@@ -43,7 +43,7 @@ jobs:
     - name: Upload Linux build
       uses: actions/upload-artifact@v1
       with:
-        name: ssmps
+        name: ssmpsl
         path: ssmps
 
   release:
