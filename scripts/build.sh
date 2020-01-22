@@ -1,4 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh
+
+set -eux
 
 version=0.1.2
 
