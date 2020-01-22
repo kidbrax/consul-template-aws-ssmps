@@ -24,7 +24,7 @@ jobs:
     - name: build
       run: |
         go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
-        Start-Process -FilePath "ssmps.exe"
+        .\ssmps.exe
       shell: powershell
 
   build_linux:
