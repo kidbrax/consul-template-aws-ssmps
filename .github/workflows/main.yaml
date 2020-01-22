@@ -64,17 +64,6 @@ jobs:
         with:
           name: ssmps
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: true
-
       - name: test binary
         run: .\ssmps.exe
         shell: powershell
@@ -85,6 +74,17 @@ jobs:
           zip --junk-paths ssmps.zip ssmps
           zip --junk-paths ssmps.exe.zip ssmps.exe
           ls -al
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release 3 ${{ github.ref }}
+          draft: false
+          prerelease: true
 
       - name: Upload Release Asset Windows
         uses: actions/upload-release-asset@v1.0.1
