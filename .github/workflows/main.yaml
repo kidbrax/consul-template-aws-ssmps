@@ -77,6 +77,7 @@ jobs:
 
       - name: Zip build files
         run: |
+          ls -al
           zip --junk-paths ssmps.zip ssmps
           zip --junk-paths ssmps.exe.zip ssmps.exe
           ls -al
