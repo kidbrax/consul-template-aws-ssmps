@@ -23,6 +23,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+      with:
+        path: ./src/github.com/${{ github.repository }}
 
     - name: build
       run: |
@@ -41,6 +43,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+      with:
+        path: ./src/github.com/${{ github.repository }}
 
     - name: build
       run: |
