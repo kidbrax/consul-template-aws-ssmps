@@ -18,7 +18,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      GOPATH: ${{ runner.workspace }}
+      GOPATH: ${{ github.workspace }}
       GOOS: windows
 
     steps:
@@ -36,7 +36,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      GOPATH: ${{ runner.workspace }}
+      GOPATH: ${{ github.workspace }}
       GOOS: linux
 
     steps:
