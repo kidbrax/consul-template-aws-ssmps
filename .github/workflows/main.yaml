@@ -17,23 +17,36 @@ jobs:
   build_windows:
     runs-on: windows-latest
 
+    env:
+      GOOS: windows
+      GOENV: amd64
+
     steps:
     - uses: actions/checkout@v1
 
     - name: build
       run: |
-        GOOS=windows GOARCH=amd64 go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
+        echo ${env:GOOS} echo ${env:GOENV}
+        go get
+        go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
         ssmps.exe
       shell: powershell
 
   build_linux:
     runs-on: ubuntu-latest
 
+    env:
+      GOOS: linux
+      GOENV: amd64
+
     steps:
     - uses: actions/checkout@v1
 
     - name: build
-      run: GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=0.1.2" -o ssmps main.go
+      run: |
+        echo $GOOS echo $GOENV
+        go get
+        GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=0.1.2" -o ssmps main.go
 
   release:
       needs: [build_windows, build_linux]
