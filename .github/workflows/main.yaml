@@ -8,6 +8,9 @@ on:
     branches:
       - master
 
+env:
+  GOPATH: ${{ runner.workspace }}
+  GOENV: amd64
 
 jobs:
   # lint
@@ -19,14 +22,13 @@ jobs:
 
     env:
       GOOS: windows
-      GOENV: amd64
 
     steps:
     - uses: actions/checkout@v1
 
     - name: build
       run: |
-        echo ${env:GOOS} echo ${env:GOENV}
+        echo ${env:GOOS} ${env:GOENV}
         go get
         go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
         ssmps.exe
@@ -37,7 +39,6 @@ jobs:
 
     env:
       GOOS: linux
-      GOENV: amd64
 
     steps:
     - uses: actions/checkout@v1
