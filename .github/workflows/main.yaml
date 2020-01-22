@@ -64,9 +64,6 @@ jobs:
         with:
           name: ssmps
 
-      # - name: release
-      #   run: ls -al
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1.0.0
@@ -78,20 +75,28 @@ jobs:
           draft: false
           prerelease: true
 
-      - run: |
+      - name: Zip build files
+        run: |
           zip ssmps.zip ssmps
           zip ssmps.exe.zip ssmps.exe
           ls -al
 
-      - name: Upload Release Asset
+      - name: Upload Release Asset Windows
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`.
-          # See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./ssmps.exe.zip
           asset_name: ssmps.exe.zip
           asset_content_type: application/zip
-          # application/vnd.microsoft.portable-executable
+
+      - name: Upload Release Asset Linux
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./ssmps.zip
+          asset_name: ssmps.zip
+          asset_content_type: application/zip
