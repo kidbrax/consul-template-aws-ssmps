@@ -22,8 +22,7 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: build
-      run: |
-        go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
+      run: go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
       shell: powershell
 
     - name: Upload Windows build
@@ -65,8 +64,7 @@ jobs:
           name: ssmps
 
       - name: test binary
-        run: .\ssmps.exe
-        shell: powershell
+        run: ./ssmps
 
       - name: Zip build files
         run: |
