@@ -75,6 +75,10 @@ jobs:
           draft: false
           prerelease: true
 
+      - name: test binary
+        run: .\ssmps.exe
+        shell: powershell
+
       - name: Zip build files
         run: |
           ls -al
