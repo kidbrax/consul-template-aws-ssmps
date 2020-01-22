@@ -29,6 +29,7 @@ jobs:
     - name: build
       run: |
         echo ${env:GOOS} ${env:GOENV}
+        go env
         go get
         go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
         ssmps.exe
@@ -44,11 +45,12 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        path: ./src/github.com/${{ github.repository }}
+        path: src/github.com/${{ github.repository }}
 
     - name: build
       run: |
         echo $GOOS echo $GOENV
+        go env
         go get
         GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=0.1.2" -o ssmps main.go
 
