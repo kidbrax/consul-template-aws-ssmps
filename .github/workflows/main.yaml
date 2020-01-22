@@ -57,12 +57,12 @@ jobs:
       - name: Download Windows build
         uses: actions/download-artifact@v1
         with:
-          name: windows-build
+          name: ssmps.exe
 
       - name: Download Linux build
         uses: actions/download-artifact@v1
         with:
-          name: linux-build
+          name: ssmps
 
       # - name: release
       #   run: ls -al
@@ -79,7 +79,6 @@ jobs:
           draft: false
           prerelease: true
       - name: Upload Release Asset
-        id: upload-release-asset
         uses: actions/upload-release-asset@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
