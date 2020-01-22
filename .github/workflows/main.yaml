@@ -26,6 +26,12 @@ jobs:
         go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
       shell: powershell
 
+    - name: Upload Windows build
+      uses: actions/upload-artifact@v1
+      with:
+        name: windows-build
+        path: ssmps.exe
+
   build_linux:
     runs-on: ubuntu-latest
 
@@ -35,6 +41,12 @@ jobs:
     - name: build
       run: GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=0.1.2" -o ssmps main.go
 
+    - name: Upload Linux build
+      uses: actions/upload-artifact@v1
+      with:
+        name: linux-build
+        path: ssmps
+
   release:
       needs: [build_windows, build_linux]
       runs-on: ubuntu-latest
@@ -42,5 +54,15 @@ jobs:
       steps:
       - uses: actions/checkout@v2
 
+      - name: Download Windows build
+        uses: actions/download-artifact@v1
+        with:
+          name: windows-build
+
+      - name: Download Linux build
+        uses: actions/download-artifact@v1
+        with:
+          name: linux-build
+
       - name: release
-        run: echo 'releasing'
+        run: ls -al
