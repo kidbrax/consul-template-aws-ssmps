@@ -36,7 +36,7 @@ jobs:
       run: GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=0.1.2" -o ssmps main.go
 
   release:
-      needs: build
+      needs: [build_windows, build_linux]
       runs-on: ubuntu-latest
 
       steps:
