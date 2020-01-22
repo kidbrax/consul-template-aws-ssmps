@@ -56,12 +56,12 @@ jobs:
       - name: Download Windows build
         uses: actions/download-artifact@v1
         with:
-          name: ssmps.exe
+          name: ssmpsw
 
       - name: Download Linux build
         uses: actions/download-artifact@v1
         with:
-          name: ssmps
+          name: ssmpsl
 
       # - name: test binary
       #   run: ./ssmps
