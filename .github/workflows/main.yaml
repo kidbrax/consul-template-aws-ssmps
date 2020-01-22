@@ -77,8 +77,8 @@ jobs:
 
       - name: Zip build files
         run: |
-          zip ssmps.zip ssmps
-          zip ssmps.exe.zip ssmps.exe
+          zip --junk-paths ssmps.zip ssmps
+          zip --junk-paths ssmps.exe.zip ssmps.exe
           ls -al
 
       - name: Upload Release Asset Windows
