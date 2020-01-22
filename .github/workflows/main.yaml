@@ -63,8 +63,8 @@ jobs:
         with:
           name: ssmps
 
-      - name: test binary
-        run: ./ssmps
+      # - name: test binary
+      #   run: ./ssmps
 
       - name: Zip build files
         run: |
@@ -72,34 +72,36 @@ jobs:
           zip --junk-paths ssmps.zip ssmps
           zip --junk-paths ssmps.exe.zip ssmps.exe
           ls -al
+          unzip -l ssmps.zip
+          unzip -l ssmps.exe
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1.0.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release 3 ${{ github.ref }}
-          draft: false
-          prerelease: true
+      # - name: Create Release
+      #   id: create_release
+      #   uses: actions/create-release@v1.0.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     tag_name: ${{ github.ref }}
+      #     release_name: Release 3 ${{ github.ref }}
+      #     draft: false
+      #     prerelease: true
 
-      - name: Upload Release Asset Windows
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ssmps.exe.zip
-          asset_name: ssmps.exe.zip
-          asset_content_type: application/zip
+      # - name: Upload Release Asset Windows
+      #   uses: actions/upload-release-asset@v1.0.1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./ssmps.exe.zip
+      #     asset_name: ssmps.exe.zip
+      #     asset_content_type: application/zip
 
-      - name: Upload Release Asset Linux
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./ssmps.zip
-          asset_name: ssmps.zip
-          asset_content_type: application/zip
+      # - name: Upload Release Asset Linux
+      #   uses: actions/upload-release-asset@v1.0.1
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   with:
+      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+      #     asset_path: ./ssmps.zip
+      #     asset_name: ssmps.zip
+      #     asset_content_type: application/zip
