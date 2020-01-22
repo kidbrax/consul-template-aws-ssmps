@@ -24,14 +24,10 @@ jobs:
     - name: build
       run: |
         go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
-        .\ssmps.exe
       shell: powershell
 
   build_linux:
     runs-on: ubuntu-latest
-
-    env:
-      GOOS: linux
 
     steps:
     - uses: actions/checkout@v2
