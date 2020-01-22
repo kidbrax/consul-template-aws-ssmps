@@ -1,15 +1,12 @@
 name: build-release
 
 on:
-  push:
-    # branches:
-      # - master
+  push: # all branches
   pull_request:
     branches:
       - master
 
 env:
-  GOPATH: ${{ runner.workspace }}
   GOENV: amd64
 
 jobs:
@@ -21,6 +18,7 @@ jobs:
     runs-on: windows-latest
 
     env:
+      GOPATH: ${{ runner.workspace }}
       GOOS: windows
 
     steps:
@@ -38,6 +36,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
+      GOPATH: ${{ runner.workspace }}
       GOOS: linux
 
     steps:
