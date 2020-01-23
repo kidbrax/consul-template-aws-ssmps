@@ -4,7 +4,7 @@ on:
   push: # all branches
   pull_request:
     branches:
-      - master
+      - master # runs workflow on any pull request made to master
 
 jobs:
   # lint
@@ -48,6 +48,9 @@ jobs:
 
     - name: testing ref
       run: echo ${{ github.ref }}
+      # refs/heads/mod
+      # refs/pull/1/merge
+
 
   release:
       needs: [build_windows, build_linux]
