@@ -11,7 +11,7 @@
 If you want to set the AWS region via the environment variable, set the "AWS_REGION" to the region you want.
 
 ```shell
-$ AWS_REGION=us-west-2 consul-template ...
+AWS_REGION=us-west-2 consul-template ...
 ```
 
 ## Usage
@@ -50,7 +50,7 @@ If you store values for the same key under the different paths for each environm
 For example, you have /production/database/password and /development/database/password in the Parameter Store.
 
 ```shell
-$ export SSMPS_BASE_PATH=/production
+export SSMPS_BASE_PATH=/production
 ```
 
 ```liquid
@@ -62,3 +62,15 @@ By setting the environment variable "SSMPS_BASE_PATH", the plugin gets the value
 If you set the "SSMPS_BASE_PATH" environment variable, the specified path in the template will be treated as a relative path if it doesn't have a leading slash. The specified path starting with a slash in the template is always treated as an absolute path. So, if you use environment specific values with the SSMPS_BASE_PATH but you want to use some environment agnostic value, you can always specify an absolute path.
 
 Please note that if you don't set the "SSMPS_BASE_PATH" but the specified path in the template doesn't have a leading slash, it will still be treated as an absolute path. So, please be careful if you set a base path while the existing template uses paths in a relative path format.
+
+## Contributing
+
+### Releasing
+
+Currently, Github Actions will create a release when a tag is pushed. Need to autmoate this further.
+
+### TODO
+
+- automate version bumping
+- see if we can split build and release into different workflows
+  - would need to create a release draft and then release it later maybe
