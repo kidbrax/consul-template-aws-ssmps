@@ -6,7 +6,6 @@ on:
 
 jobs:
   release:
-      needs: [build_windows, build_linux]
       runs-on: ubuntu-latest
 
       steps:
