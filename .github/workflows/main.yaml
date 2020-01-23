@@ -49,9 +49,13 @@ jobs:
   release:
       needs: [build_windows, build_linux]
       runs-on: ubuntu-latest
+      # if: github.ref == 'refs/heads/master'
 
       steps:
       - uses: actions/checkout@v2
+
+      - name: testing if
+        run: echo ${{ github.ref }}
 
       - name: Download Windows build
         uses: actions/download-artifact@v1
@@ -74,9 +78,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: v0.1.3.2 # ${{ github.ref }} # creating the release also creates a git tag
           release_name: ${{ github.ref }}
-          draft: false
+          draft: true
           prerelease: true
 
       - name: Upload Release Asset Windows
