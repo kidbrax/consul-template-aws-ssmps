@@ -1,51 +1,10 @@
-name: build-release
+name: release
 
 on:
-  push: # all branches
-  pull_request:
-    branches:
-      - master
+  push:
+    tags:
 
 jobs:
-  # lint
-
-  # test
-
-  build_windows:
-    runs-on: windows-latest
-
-    env:
-      GOOS: windows
-      GOARCH: amd64
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: build
-      run: go build -ldflags "-X main.version=0.1.2" -o ssmps.exe main.go
-      shell: powershell
-
-    - name: Upload Windows build
-      uses: actions/upload-artifact@v1
-      with:
-        name: ssmpsw # this is a directory it puts the path below in
-        path: ssmps.exe
-
-  build_linux:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: build
-      run: GOOS=linux GOARCH=amd64 go build -ldflags "-X main.version=0.1.2" -o ssmps main.go
-
-    - name: Upload Linux build
-      uses: actions/upload-artifact@v1
-      with:
-        name: ssmpsl # this is a directory it puts the path below in
-        path: ssmps
-
   release:
       needs: [build_windows, build_linux]
       runs-on: ubuntu-latest
@@ -63,19 +22,10 @@ jobs:
         with:
           name: ssmpsl
 
-      # - name: test binary
-      #   run: ./ssmps
-
       - name: Zip build files
         run: |
-          ls -al
-          ls -al ssmpsl
-          ls -al ssmpsw
           zip --junk-paths ssmps.zip ssmpsl/ssmps
           zip --junk-paths ssmps.exe.zip ssmpsw/ssmps.exe
-          ls -al
-          unzip -l ssmps.zip
-          unzip -l ssmps.exe.zip
 
       - name: Create Release
         id: create_release
@@ -84,9 +34,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release 4 ${{ github.ref }}
+          release_name: ${{ github.ref }}
           draft: false
-          prerelease: true
+          # prerelease: true
 
       - name: Upload Release Asset Windows
         uses: actions/upload-release-asset@v1.0.1
