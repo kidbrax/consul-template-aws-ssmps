@@ -85,7 +85,7 @@ jobs:
           # creating the release also creates a git tag
           tag_name: ${{ env.NAMETAG }} # ${{ github.ref }}
           release_name: ${{ env.NAMETAG }}
-          draft: true
+          draft: false
           prerelease: true
 
       - name: Upload Release Asset Windows
