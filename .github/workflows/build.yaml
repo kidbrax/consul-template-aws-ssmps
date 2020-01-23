@@ -3,8 +3,8 @@ name: build
 on:
   push: # all branches
   pull_request:
-    # branches:
-    #   - master
+    branches:
+      - master
 
 jobs:
   # lint
@@ -63,19 +63,10 @@ jobs:
         with:
           name: ssmpsl
 
-      # - name: test binary
-      #   run: ./ssmps
-
       - name: Zip build files
         run: |
-          ls -al
-          ls -al ssmpsl
-          ls -al ssmpsw
           zip --junk-paths ssmps.zip ssmpsl/ssmps
           zip --junk-paths ssmps.exe.zip ssmpsw/ssmps.exe
-          ls -al
-          unzip -l ssmps.zip
-          unzip -l ssmps.exe.zip
 
       - name: Create Release
         id: create_release
@@ -84,7 +75,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release 4 ${{ github.ref }}
+          release_name: ${{ github.ref }}
           draft: false
           prerelease: true
 
