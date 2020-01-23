@@ -81,8 +81,8 @@ jobs:
         with:
           # Excellent! This tag will be created from the target when you publish this release.
           # creating the release also creates a git tag
-          tag_name: $NAMETAG # ${{ github.ref }}
-          release_name: $NAMETAG
+          tag_name: ${{ env.NAMETAG }} # ${{ github.ref }}
+          release_name: ${{ env.NAMETAG }}
           draft: true
           prerelease: true
 
