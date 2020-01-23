@@ -2,7 +2,7 @@
 
 set -eux
 
-version=0.1.2
+version=0.X
 
 mkdir -p ./builds
 
